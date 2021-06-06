@@ -26,20 +26,20 @@ class Server {
             });
         });
 
-        this.app.put('/api', (req, res) => {
-            res.json({
+        this.app.put('/api', (req, res) => {        // Errores cuatrocientos indican que el usuario realizó mal la peticion desde el frontend
+            res.status(400).json({
                 msg: 'put API'
             });
         });
 
         this.app.post('/api', (req, res) => {
-            res.json({
+            res.status(201).json({                  // Errores doscientos indican peticiones realizadas correctamente
                 msg: 'post API'
             });
         });
 
         this.app.delete('/api', (req, res) => {
-            res.json({
+            res.status(500).json({                  // Errores quinientos indican algún problema desde el codigo del server
                 msg: 'delete API'
             });
         });
