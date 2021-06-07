@@ -21,3 +21,5 @@ PORT=8080
 
 [CORS](https://www.npmjs.com/package/cors)
 
+[Mongoose](https://mongoosejs.com/)
+
