@@ -1,6 +1,8 @@
 // Para tener una mejor ayuda del editor al usar las funciones de express se usa la siguiente linea
 const { response, request } = require('express');
 
+const Usuario = require('../models/usuario');
+
 const usuariosGet = (req = request, res = response) => {
 
     // Se obtienen los query params enviados desde la url, Ej: localhost:PORT/api/users?name=Cristian&name=Morales
@@ -25,14 +27,17 @@ const usuariosPut = (req, res = response) => {
     });
 }
 
-const usuariosPost = (req, res = response) => {
+const usuariosPost = async(req, res = response) => {
 
-    const { nombre, edad } = req.body;  // Se obtiene la respuesta del posteo
+    const body = req.body;  // Se obtiene la respuesta del posteo
+
+    const usuario = new Usuario( body );
+
+    // Guardar registro
+    await usuario.save();
     
-    res.status(201).json({                  // Errores doscientos indican peticiones realizadas correctamente
-        msg: 'post API desde el controlador',
-        nombre,
-        edad
+    res.json({
+        usuario
     });
 }
 
