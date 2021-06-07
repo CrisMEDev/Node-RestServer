@@ -2,6 +2,14 @@
 
 Implementación de un rest server con sus diferentes endpoints
 
+### **Configuraciones necesarias**
+
+Crear el archivo .env en el directorio raíz del proyecto y asignar el puerto a usar
+
+Ejemplo:
+```
+PORT=8080
+```
 
 ### **Documentación usada**
 
