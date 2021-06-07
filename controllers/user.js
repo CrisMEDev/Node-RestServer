@@ -14,8 +14,13 @@ const usuariosPut = (req, res = response) => {
 }
 
 const usuariosPost = (req, res = response) => {
+
+    const { nombre, edad } = req.body;  // Se obtiene la respuesta del posteo
+    
     res.status(201).json({                  // Errores doscientos indican peticiones realizadas correctamente
-        msg: 'post API desde el controlador'
+        msg: 'post API desde el controlador',
+        nombre,
+        edad
     });
 }
 
