@@ -25,3 +25,4 @@ PORT=8080
 
 [bcryptjs](https://www.npmjs.com/package/bcryptjs)
 
+[express-validator](https://www.npmjs.com/package/express-validator)

@@ -1,5 +1,6 @@
 // Para tener una mejor ayuda del editor al usar las funciones de express se usa la siguiente linea
 const { response, request } = require('express');
+const { validationResult } = require('express-validator');
 const bcryptjs = require('bcryptjs');
 
 const Usuario = require('../models/usuario');
@@ -30,10 +31,22 @@ const usuariosPut = (req, res = response) => {
 
 const usuariosPost = async(req, res = response) => {
 
+    // Se toman los errores obtenidos del middleware check
+    const errors = validationResult(req);
+    if ( !errors.isEmpty() ){
+        return res.status(400).json( errors );
+    }
+
     const { nombre, correo, password, role } = req.body;  // Se obtiene la respuesta del posteo
     const usuario = new Usuario({ nombre, correo, pass: password, role });
 
     // Verificar si el correo existe
+    const emailExist = await Usuario.findOne({ correo });
+    if ( emailExist ){
+        return res.status(400).json({
+            error: `El correo ${correo} ya está registrado`
+        });
+    }
 
     // Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();

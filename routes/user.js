@@ -1,5 +1,6 @@
 
 const { Router } = require('express');
+const { check } = require('express-validator');
 const { usuariosGet,
         usuariosPut,
         usuariosPost,
@@ -13,7 +14,9 @@ router.get('/', usuariosGet );
 
 router.put('/:id', usuariosPut ); // Se agrega el parametro de segmento id
 
-router.post('/', usuariosPost );
+router.post('/', [  // Se enviarán los middlewares necesarios para validar datos
+    check('correo', 'El correo no es válido').isEmail(),    // Se revisa el campo correo para que contenga uno válido
+], usuariosPost );
 
 router.patch('/', usuariosPatch );
 
