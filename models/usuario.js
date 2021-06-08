@@ -34,7 +34,9 @@ const UsuarioSchema = Schema({
         role: {
             type: String,
             required: true,
-            enum: ['ADMIN_ROLE', 'USER_ROLE']
+            //enum: ['ADMIN_ROLE', 'USER_ROLE']     
+            // Despues de validar el rol contra la base de datos, el enum no es requerido
+            // de dejarse en este objeto, se le dará prioridad a estos y cualquier otro rol en la base de datos no será válido
         },
 
         estado: {
@@ -47,6 +49,14 @@ const UsuarioSchema = Schema({
             default: false
         },   // Para saber si el usuario fue creado por google o el sistema propio del backend
 });
+
+UsuarioSchema.methods.toJSON = function(){
+
+    // Genera una instancia de la de mi Schema con sus valores respectivos
+    const { __v, pass, ...user } = this.toObject(); // Saca la version y el password de mi objeto Schema y el resto lo deja en user
+
+    return user;
+}
 
 
 module.exports = model( 'Usuario', UsuarioSchema );

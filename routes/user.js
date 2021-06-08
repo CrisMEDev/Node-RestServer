@@ -3,6 +3,8 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const { validarCampos } = require('../middlewares/validar-campos');
+const { esRoleValido } = require('../helpers/db-validators');
+
 const { usuariosGet,
         usuariosPut,
         usuariosPost,
@@ -21,10 +23,12 @@ router.post('/', [  // Se enviarán los middlewares necesarios para validar dato
     // Se revisa el campo password para que contenga un valor y tenga al menos 6 caracteres
     check('password', 'El password es obligatorio y mayor a 6 caracteres').isLength({ min: 6 }),
     check('correo', 'El correo no es válido').isEmail(),    // Se revisa el campo correo para que contenga uno válido
-    check('role', 'No es un rol permitido').isIn([
-        'ADMIN_ROLE',
-        'USER_ROLE'
-    ]),      // Se revisa el role para que sea válido
+
+    // check('role', 'No es un rol permitido').isIn([
+    //     'ADMIN_ROLE',
+    //     'USER_ROLE'
+    // ]),      // Se revisa el role para que sea válido
+    check('role').custom( esRoleValido ),
 
     validarCampos   // Si el middleware creado pasa las validaciones, ejecuta el controlador
 
