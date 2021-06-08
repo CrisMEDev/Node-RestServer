@@ -23,3 +23,5 @@ PORT=8080
 
 [Mongoose](https://mongoosejs.com/)
 
+[bcryptjs](https://www.npmjs.com/package/bcryptjs)
+
