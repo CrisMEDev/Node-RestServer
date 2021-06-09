@@ -3,7 +3,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const { validarCampos } = require('../middlewares/validar-campos');
-const { esRoleValido, emailExiste } = require('../helpers/db-validators');
+const { esRoleValido, emailExiste, usuarioByIdExiste } = require('../helpers/db-validators');
 
 const { usuariosGet,
         usuariosPut,
@@ -16,7 +16,13 @@ const router = new Router();
 // Se pasa la referencia del controller correspondiente en cada petición
 router.get('/', usuariosGet );
 
-router.put('/:id', usuariosPut ); // Se agrega el parametro de segmento id
+router.put('/:id', [
+    check('id', 'No es un ID válido').isMongoId(),  // check también reconoce los paramatros y no solo los segmentos
+    check('id').custom( usuarioByIdExiste ),
+    // Para forzar un rol correcto, inconveniente es que puede que no se requiera actualizar el rol
+    check('role').custom( esRoleValido ),
+    validarCampos
+], usuariosPut ); // Se agrega el parametro de segmento id
 
 router.post('/', [  // Se enviarán los middlewares necesarios para validar datos
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),  // Se revisa el campo nombre para que contenga un valor

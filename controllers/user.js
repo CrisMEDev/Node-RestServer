@@ -21,9 +21,8 @@ const usuariosPut = async(req = request, res = response) => {
 
     // Tambien se puede desestructurar el elemento:     const { id } = req.params
     const id = req.params.id;   // Se obtiene el parametro de segmento id definido en la route a put
-    const { password, google, correo, ...resto } = req.body;
+    const { _id, password, google, correo, ...resto } = req.body;
 
-    // TODO: validar contra base de datos
     if ( password ){
         // Encriptar la contraseña
         const salt = bcryptjs.genSaltSync();
