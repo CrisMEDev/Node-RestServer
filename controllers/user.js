@@ -68,15 +68,24 @@ const usuariosPost = async(req = request, res = response) => {
     });
 }
 
-const usuariosPatch = (req, res = response) => {
+const usuariosDelete = async(req = request, res = response) => {
+    
+    const { id } = req.params;
+
+    // Borrar usuario fisicamente
+    // const usuario = await Usuario.findByIdAndDelete( id );
+
+
+    const usuario = await Usuario.findByIdAndUpdate( id, { estado: false } );
+    
     res.json({
-        msg: 'patch API desde el controlador'
+        usuario
     });
 }
 
-const usuariosDelete = (req, res = response) => {
-    res.status(500).json({                  // Errores quinientos indican algún problema desde el codigo del server
-        msg: 'delete API desde el controlador'
+const usuariosPatch = (req, res = response) => {
+    res.json({
+        msg: 'patch API desde el controlador'
     });
 }
 

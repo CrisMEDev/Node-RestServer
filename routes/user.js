@@ -41,9 +41,14 @@ router.post('/', [  // Se enviarán los middlewares necesarios para validar dato
 
 ], usuariosPost );
 
+router.delete('/:id', [
+    check('id', 'No es un ID válido').isMongoId(),  // check también reconoce los paramatros y no solo los segmentos
+    check('id').custom( usuarioByIdExiste ),
+    validarCampos
+], usuariosDelete );
+
 router.patch('/', usuariosPatch );
 
-router.delete('/', usuariosDelete );
 
 
 
