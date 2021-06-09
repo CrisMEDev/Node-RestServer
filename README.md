@@ -11,6 +11,7 @@ Implementación de un rest server con sus diferentes endpoints
 Ejemplo:
 ```
 PORT=8080
+MONGODB_CNN=mongodb+srv://{MyUserName}:{MyPassword}@miclustercafe.noxip.mongodb.net/mydbcrisme
 ```
 
 ### **Documentación usada**
