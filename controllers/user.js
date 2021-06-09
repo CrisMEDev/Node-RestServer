@@ -17,18 +17,28 @@ const usuariosGet = (req = request, res = response) => {
     });
 }
 
-const usuariosPut = (req, res = response) => {
+const usuariosPut = async(req = request, res = response) => {
 
     // Tambien se puede desestructurar el elemento:     const { id } = req.params
-    const id = req.params.id;   // Se obtiene el parametro de segmento id definido en la ruta put
+    const id = req.params.id;   // Se obtiene el parametro de segmento id definido en la route a put
+    const { password, google, correo, ...resto } = req.body;
+
+    // TODO: validar contra base de datos
+    if ( password ){
+        // Encriptar la contraseña
+        const salt = bcryptjs.genSaltSync();
+        resto.password = bcryptjs.hashSync( password, salt );
+    }
+
+    const usuario = await Usuario.findByIdAndUpdate( id, resto );
 
     res.status(400).json({                  // Errores cuatrocientos indican que el usuario realizó mal la peticion desde el frontend
         msg: 'put API desde el controlador',
-        id
+        usuario
     });
 }
 
-const usuariosPost = async(req, res = response) => {
+const usuariosPost = async(req = request, res = response) => {
 
     const { nombre, correo, password, role } = req.body;  // Se obtiene la respuesta del posteo
     const usuario = new Usuario({ nombre, correo, pass: password, role });
