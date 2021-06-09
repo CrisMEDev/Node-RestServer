@@ -4,16 +4,18 @@ const bcryptjs = require('bcryptjs');
 
 const Usuario = require('../models/usuario');
 
-const usuariosGet = (req = request, res = response) => {
+const usuariosGet = async(req = request, res = response) => {
 
-    // Se obtienen los query params enviados desde la url, Ej: localhost:PORT/api/users?name=Cristian&name=Morales
-    const { q, nombre = 'No name', apiKey } = req.query;
+    const { limite = 5, desde = 0 } = req.query;
+
+    // TODO: Faltaría implementar una validación en caso de que el query param sea uns string y no un number
+
+    const usuarios = await Usuario.find()
+        .skip(Number(desde))        // Registro en el que empieza
+        .limit(Number(limite));     // Cuantos registros tomará
 
     res.json({
-        msg: 'get API desde el controlador',
-        q,
-        nombre,
-        apiKey
+        usuarios
     });
 }
 
@@ -31,8 +33,7 @@ const usuariosPut = async(req = request, res = response) => {
 
     const usuario = await Usuario.findByIdAndUpdate( id, resto );
 
-    res.status(400).json({                  // Errores cuatrocientos indican que el usuario realizó mal la peticion desde el frontend
-        msg: 'put API desde el controlador',
+    res.status(400).json({
         usuario
     });
 }
