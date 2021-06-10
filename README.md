@@ -6,13 +6,17 @@ Implementación de un rest server con sus diferentes endpoints
 
 * Recordar reconstruir los módulos de node con ``` npm install ```
 
-* Crear el archivo .env en el directorio raíz del proyecto y asignar el puerto a usar
+* Crear el archivo .env en el directorio raíz del proyecto y asignar:
+    * El puerto a usar
+    * El enlace para la conexión a la base de datos en la nube
 
 Ejemplo:
 ```
 PORT=8080
 MONGODB_CNN=mongodb+srv://{MyUserName}:{MyPassword}@miclustercafe.noxip.mongodb.net/mydbcrisme
 ```
+
+* No olvidar agregar las ip de conexión deseadas a la lista blanca de la base de datos de mongo
 
 ### **Documentación usada**
 
@@ -27,3 +31,4 @@ MONGODB_CNN=mongodb+srv://{MyUserName}:{MyPassword}@miclustercafe.noxip.mongodb.
 [bcryptjs](https://www.npmjs.com/package/bcryptjs)
 
 [express-validator](https://www.npmjs.com/package/express-validator)
+
