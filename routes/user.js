@@ -4,6 +4,8 @@ const { check } = require('express-validator');
 
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
+const { esAdminRole } = require('../middlewares/validar-roles');
+
 const { esRoleValido, emailExiste, usuarioByIdExiste } = require('../helpers/db-validators');
 
 const { usuariosGet,
@@ -44,6 +46,7 @@ router.post('/', [  // Se enviarán los middlewares necesarios para validar dato
 
 router.delete('/:id', [
     validarJWT,
+    esAdminRole,
     check('id', 'No es un ID válido').isMongoId(),  // check también reconoce los paramatros y no solo los segmentos
     check('id').custom( usuarioByIdExiste ),
     validarCampos
