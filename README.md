@@ -9,11 +9,13 @@ Implementación de un rest server con sus diferentes endpoints
 * Crear el archivo .env en el directorio raíz del proyecto y asignar:
     * El puerto a usar
     * El enlace para la conexión a la base de datos en la nube
+    * El password firma para el JWT
 
 Ejemplo:
 ```
 PORT=8080
 MONGODB_CNN=mongodb+srv://{MyUserName}:{MyPassword}@miclustercafe.noxip.mongodb.net/mydbcrisme
+SECRETORPRIVATEKEY=Est0eSMyPuBliCK3y@_alpm#
 ```
 
 * No olvidar agregar las ip de conexión deseadas a la lista blanca de la base de datos de mongo
