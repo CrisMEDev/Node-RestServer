@@ -1,6 +1,6 @@
 const { request, response } = require("express")
 
-
+// Solo admite la operación para el ADMIN_ROLE
 const esAdminRole = (req = request, res = response, next) => {
 
     if ( !req.usuario ){
@@ -20,7 +20,29 @@ const esAdminRole = (req = request, res = response, next) => {
     next();
 }
 
+// Solo admite la operación para un arreglo de roles
+const tieneRol = ( ...roles ) => {
+    return (req = request, res = response, next) => {
+
+        if ( !req.usuario ){
+            return res.status(500).json({
+                msg: 'Se quiere verificar el rol sin validar el token primero'
+            });
+        }
+
+        if ( !roles.includes( req.usuario.role ) ){
+            return res.status(401).json({
+                msg: `El servicio requiere uno de estos roles: ${ roles }`
+            });
+        }
+
+        next();
+    }
+}
+
+
 module.exports = {
-    esAdminRole
+    esAdminRole,
+    tieneRol
 }
 
