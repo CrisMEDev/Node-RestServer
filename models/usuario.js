@@ -52,8 +52,10 @@ const UsuarioSchema = Schema({
 
 UsuarioSchema.methods.toJSON = function(){
 
-    // Genera una instancia de la de mi Schema con sus valores respectivos
-    const { __v, pass, ...user } = this.toObject(); // Saca la version y el password de mi objeto Schema y el resto lo deja en user
+    // Genera una instancia de mi Schema con sus valores respectivos
+    const { __v, pass, _id, ...user } = this.toObject(); // Saca la version y el password de mi objeto Schema y el resto lo deja en user
+
+    user.uid = _id;
 
     return user;
 }
