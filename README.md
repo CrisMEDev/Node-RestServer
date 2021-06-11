@@ -32,3 +32,5 @@ MONGODB_CNN=mongodb+srv://{MyUserName}:{MyPassword}@miclustercafe.noxip.mongodb.
 
 [express-validator](https://www.npmjs.com/package/express-validator)
 
+[jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+
