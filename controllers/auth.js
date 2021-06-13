@@ -57,12 +57,39 @@ const googleLogin = async( req = request, res = response ) => {
     const { id_token } = req.body;
 
     try { 
-        const googleUser = await googleVerify( id_token );
-        console.log(googleUser);
+        const { nombre, correo, img } = await googleVerify( id_token );
+
+        let usuario = await Usuario.findOne({ correo });
+
+        if ( !usuario ){
+            // Crear usuario
+            const data = {
+                nombre,
+                correo,
+                pass: ':D',
+                img,
+                google: true
+            }
+
+            usuario = new Usuario( data );
+
+            await usuario.save();
+        }
+
+        // Si el usuario en DB fue inhabiliado por alguna razón
+        if ( !usuario.estado ){
+            return res.status(401).json({
+                msg: 'Hable con el administrador, usuario bloqueado'
+            });
+        }
+
+        // Generar JWT
+        const token = await generarJWT( usuario.id );
+        
 
         res.json({
-            msg: 'Todo OK, google sign in',
-            googleUser
+            usuario,
+            token
         });
         
     } catch (error) {
