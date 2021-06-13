@@ -20,12 +20,31 @@
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script>
+
+        // Si no se esta en pruebas locales usa la url del backend
+        var url = ( window.location.hostname.includes('localhost') )
+            ? 'http://localhost:8080/api/auth/google'
+            : 'https://restserver-crisme.herokuapp.com/api/auth/google';
+
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
             console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
             console.log('Name: ' + profile.getName());
             console.log('Image URL: ' + profile.getImageUrl());
             console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+            var id_token = googleUser.getAuthResponse().id_token;
+            const data = { id_token };
+
+            // Enviando el token a el backend
+            fetch( url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify( data )
+            })
+            .then( resp => resp.json() )
+            .then( data => console.log('Mi server: ', data) )
+            .catch( console.log )
         }
 
         function signOut() {
@@ -34,6 +53,7 @@
                 console.log('User signed out.');
             });
         }
+
     </script>
 
 </body>
