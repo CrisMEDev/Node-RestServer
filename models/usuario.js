@@ -34,6 +34,7 @@ const UsuarioSchema = Schema({
         role: {
             type: String,
             required: true,
+            default: 'USER_ROLE'
             //enum: ['ADMIN_ROLE', 'USER_ROLE']     
             // Despues de validar el rol contra la base de datos, el enum no es requerido
             // de dejarse en este objeto, se le dará prioridad a estos y cualquier otro rol en la base de datos no será válido
