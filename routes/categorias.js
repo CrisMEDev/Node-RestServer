@@ -1,7 +1,9 @@
-const { Router, response } = require('express');
+const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { validarCampos } = require('../middlewares/validar-campos');
+const { crearCategoria } = require('../controllers/categorias');
+
+const { validarJWT, validarCampos } = require('../middlewares');
 
 const router = Router();
 
@@ -24,11 +26,11 @@ router.get('/:id',( req, res ) => {
 })
 
 // Crear nueva categoria - cualquier peersona con un token válido
-router.post('/',( req, res ) => {
-    res.json({
-        msg: 'post'
-    });
-})
+router.post('/', [
+    validarJWT,
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    validarCampos
+], crearCategoria)
 
 // Actualizar un registro por id - cualquier peersona con un token válido
 router.put('/:id',( req, res ) => {
