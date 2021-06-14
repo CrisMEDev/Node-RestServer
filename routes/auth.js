@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 const { login, googleLogin } = require('../controllers/auth');
 const { validarCampos } = require('../middlewares/validar-campos');
 
-const router = new Router();
+const router = Router();
 
 // Se pasa la referencia del controller correspondiente en cada petición
 router.post('/login', [

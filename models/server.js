@@ -8,8 +8,12 @@ class Server {
     constructor(){
         this.app = express();
         this.port = process.env.PORT;
-        this.usuariosRoutePath = '/api/usuarios';
-        this.authPath          = '/api/auth';
+
+        this.paths = {
+            auth:           '/api/auth',
+            categorias:     '/api/categorias',
+            usuarios:       '/api/usuarios'
+        }
 
         // Conectarnos a base de datos
         this.databaseConnection();
@@ -41,8 +45,9 @@ class Server {
     routes(){
         // Se usa un middleware para cargar ciertas rutas dependiendo de una ruta inicial
 
-        this.app.use( this.authPath, require('../routes/auth') );
-        this.app.use( this.usuariosRoutePath, require('../routes/user') );
+        this.app.use( this.paths.auth, require('../routes/auth') );
+        this.app.use( this.paths.categorias, require('../routes/categorias') );
+        this.app.use( this.paths.usuarios, require('../routes/user') );
 
     }
 

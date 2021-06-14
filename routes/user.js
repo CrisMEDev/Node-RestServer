@@ -17,7 +17,7 @@ const { usuariosGet,
         usuariosPatch,
         usuariosDelete } = require('../controllers/user');
 
-const router = new Router();
+const router = Router();
 
 // Se pasa la referencia del controller correspondiente en cada petición
 router.get('/', usuariosGet );
