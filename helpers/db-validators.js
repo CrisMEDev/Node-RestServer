@@ -1,5 +1,7 @@
-const Usuario = require('../models/usuario');
-const Role = require('../models/role');
+const { Usuario,
+        Role,
+        Categoria
+} = require('../models');
 
 // Verificar si el rol es valido y parte de la BD
 const esRoleValido = async(role = '') => {
@@ -29,8 +31,19 @@ const usuarioByIdExiste = async( id ) => {
     }
 }
 
+const existeCategoria = async( id ) => {
+
+    const categoriaExiste = await Categoria.findById( id );
+
+    if ( !categoriaExiste ){
+        throw new Error(`El id ${id} no existe, intenta con un id válido`);
+    }
+
+}
+
 module.exports = {
     esRoleValido,
     emailExiste,
-    usuarioByIdExiste
+    usuarioByIdExiste,
+    existeCategoria
 }

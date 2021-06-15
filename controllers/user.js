@@ -21,8 +21,8 @@ const usuariosGet = async(req = request, res = response) => {
     const [ total, usuarios ] = await Promise.all([
         Usuario.countDocuments(query),
 
-        Usuario.find(query)         // Solo devuelve el estado en true
-        .skip(Number(desde))        // Registro en el que empieza
+        Usuario.find(query)          // Solo devuelve el estado en true
+        .skip(Number(desde))         // Registro en el que empieza
         .limit(Number(limite))      // Cuantos registros tomará
     ]);
 
@@ -46,7 +46,7 @@ const usuariosPut = async(req = request, res = response) => {
 
     const usuario = await Usuario.findByIdAndUpdate( id, resto );
 
-    res.status(400).json({
+    res.status(201).json({
         usuario
     });
 }

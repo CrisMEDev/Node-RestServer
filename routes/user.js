@@ -23,7 +23,7 @@ const router = Router();
 router.get('/', usuariosGet );
 
 router.put('/:id', [
-    check('id', 'No es un ID válido').isMongoId(),  // check también reconoce los paramatros y no solo los segmentos
+    check('id', 'No es un ID válido').isMongoId(),  // check también reconoce los parametros y no solo los segmentos
     check('id').custom( usuarioByIdExiste ),
     // Para forzar un rol correcto, inconveniente es que puede que no se requiera actualizar el rol
     check('role').custom( esRoleValido ),
