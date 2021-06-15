@@ -1,17 +1,8 @@
 const { Usuario,
         Role,
-        Categoria
+        Categoria,
+        Producto
 } = require('../models');
-
-// Verificar si el rol es valido y parte de la BD
-const esRoleValido = async(role = '') => {
-    const existeRol = await Role.findOne({ role });
-    if ( !existeRol ){
-        // Este throw no revienta la aplicación, lo atrapa el custom par amanejarlo como los otros check
-        throw new Error(`El rol ${ role } no está registrado en la base de datos`);
-    }
-}
-
 
 const emailExiste = async(correo = '') => {
 
@@ -19,6 +10,15 @@ const emailExiste = async(correo = '') => {
     const emailExist = await Usuario.findOne({ correo });
     if ( emailExist ){
         throw new Error(`El correo ${correo} ya está registrado, intenta con otro correo`);
+    }
+}
+
+// Verificar si el rol es valido y parte de la BD
+const esRoleValido = async(role = '') => {
+    const existeRol = await Role.findOne({ role });
+    if ( !existeRol ){
+        // Este throw no revienta la aplicación, lo atrapa el custom para manejarlo como los otros check
+        throw new Error(`El rol ${ role } no está registrado en la base de datos`);
     }
 }
 
@@ -41,9 +41,20 @@ const existeCategoria = async( id ) => {
 
 }
 
+const existeProducto = async( id ) => {
+
+    const productoExiste = await Producto.findById( id );
+
+    if ( !productoExiste ){
+        throw new Error(`El id ${id} no existe, intenta con un id válido`);
+    }
+
+}
+
 module.exports = {
-    esRoleValido,
     emailExiste,
+    esRoleValido,
     usuarioByIdExiste,
-    existeCategoria
+    existeCategoria,
+    existeProducto
 }

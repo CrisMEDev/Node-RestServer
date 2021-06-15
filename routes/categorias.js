@@ -8,7 +8,7 @@ const { crearCategoria,
         borrarCategoria
 } = require('../controllers/categorias');
 
-const { validarJWT, validarCampos, tieneRol, esAdminRole } = require('../middlewares');
+const { validarJWT, validarCampos, esAdminRole } = require('../middlewares');
 const { existeCategoria } = require('../helpers/db-validators');
 
 const router = Router();
