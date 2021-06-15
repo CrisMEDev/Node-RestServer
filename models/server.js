@@ -11,6 +11,7 @@ class Server {
 
         this.paths = {
             auth:           '/api/auth',
+            buscar:         '/api/buscar',
             categorias:     '/api/categorias',
             productos:      '/api/productos',
             usuarios:       '/api/usuarios'
@@ -46,10 +47,11 @@ class Server {
     routes(){
         // Se usa un middleware para cargar ciertas rutas dependiendo de una ruta inicial
 
-        this.app.use( this.paths.auth, require('../routes/auth') );
+        this.app.use( this.paths.auth,       require('../routes/auth') );
+        this.app.use( this.paths.buscar,     require('../routes/buscar') );
         this.app.use( this.paths.categorias, require('../routes/categorias') );
-        this.app.use( this.paths.productos, require('../routes/productos') );
-        this.app.use( this.paths.usuarios, require('../routes/user') );
+        this.app.use( this.paths.productos,  require('../routes/productos') );
+        this.app.use( this.paths.usuarios,   require('../routes/user') );
 
     }
 
