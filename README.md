@@ -38,5 +38,6 @@ GOOGLE_CLIENT_ID=MyAwesomeGoogleID
 
 [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 
-[Integrating Google Sign-In into your web app](https://developers.google.com/identity/sign-in/web/sign-in)
+[express-fileupload](https://www.npmjs.com/package/express-fileupload)
 
+[Integrating Google Sign-In into your web app](https://developers.google.com/identity/sign-in/web/sign-in)
