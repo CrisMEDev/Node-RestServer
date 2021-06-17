@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const { cargarArchivo, actualizarImagenDeColeccion } = require('../controllers/uploads');
-const { validarCampos } = require('../middlewares/validar-campos');
+const { validarCampos, validarArchivoASubir } = require('../middlewares');
 const { coleccionesPermitidas } = require('../helpers');
 
 const router = Router();
@@ -10,9 +10,10 @@ const router = Router();
 // Por estandar se usara un post para crear un archivo; por lo general put es para actualizar
 
 // Endpoint para cargar archivo
-router.post('/', cargarArchivo);
+router.post('/', validarArchivoASubir, cargarArchivo);
 
 router.put('/:coleccion/:id', [
+    validarArchivoASubir,
     check('id', 'No es un id de base de datos').isMongoId(),
     check('coleccion').custom( c => coleccionesPermitidas( c, ['usuarios', 'productos'] ) ), // c es el param que se recibe en el put
     validarCampos
