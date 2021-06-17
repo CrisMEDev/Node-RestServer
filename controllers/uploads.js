@@ -1,5 +1,5 @@
-const path = require('path');
 const { request, response } = require('express');
+const { subirArchivo } = require('../helpers/');
 
 
 const cargarArchivo = async( req = request, res = response ) => {
@@ -9,15 +9,9 @@ const cargarArchivo = async( req = request, res = response ) => {
         return;
     }
 
-    const { archivo } = req.files;
+    const nombreImagen =  await subirArchivo( req.files );
 
-    const uploadPath = path.join( __dirname, '../uploads/', archivo.name);
-
-    archivo.mv(uploadPath, (err) => {
-        if (err) { return res.status(500).json({ err }); }
-
-        res.json('Archivo subido en: ' + uploadPath);
-    });
+    res.json({ nombreImagen });
 
 }
 

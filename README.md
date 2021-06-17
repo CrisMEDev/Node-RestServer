@@ -40,4 +40,6 @@ GOOGLE_CLIENT_ID=MyAwesomeGoogleID
 
 [express-fileupload](https://www.npmjs.com/package/express-fileupload)
 
+[uuid](https://www.npmjs.com/package/uuid)
+
 [Integrating Google Sign-In into your web app](https://developers.google.com/identity/sign-in/web/sign-in)
