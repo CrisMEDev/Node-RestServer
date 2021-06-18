@@ -1,7 +1,11 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { cargarArchivo, actualizarImagenDeColeccion, mostrarImagen } = require('../controllers/uploads');
+const { cargarArchivo,
+    actualizarImagenDeColeccion,
+    mostrarImagen,
+    actualizarImagenDeColeccionCloudinary,
+    mostrarImagenCloudinary } = require('../controllers/uploads');
 const { validarCampos, validarArchivoASubir } = require('../middlewares');
 const { coleccionesPermitidas } = require('../helpers');
 
@@ -17,13 +21,13 @@ router.put('/:coleccion/:id', [
     check('id', 'No es un id de base de datos').isMongoId(),
     check('coleccion').custom( c => coleccionesPermitidas( c, ['usuarios', 'productos'] ) ), // c es el param que se recibe en el put
     validarCampos
-], actualizarImagenDeColeccion );
+], actualizarImagenDeColeccionCloudinary ); // actualizarImagenDeColeccion; controller para almacenamiento en local
 
 router.get('/:coleccion/:id', [
     check('id', 'No es un id de base de datos').isMongoId(),
     check('coleccion').custom( c => coleccionesPermitidas( c, ['usuarios', 'productos'] ) ), // c es el param que se recibe en el put
     validarCampos
-], mostrarImagen);
+], mostrarImagenCloudinary);   // mostrarImagen; controller para mostrar imagen en local
 
 
 module.exports = router;

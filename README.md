@@ -11,6 +11,7 @@ Implementación de un rest server con sus diferentes endpoints
     * El enlace para la conexión a la base de datos en la nube
     * El password firma para el JWT
     * Key de google necesaria para obtener los tokens y datos necesarios por inició de sesión
+    * Key de cloudianry obtenida de la nuestra cuenta personal --> API Enviroment varialbe
 
 Ejemplo:
 ```
@@ -18,6 +19,7 @@ PORT=8080
 MONGODB_CNN=mongodb+srv://{MyUserName}:{MyPassword}@miclustercafe.noxip.mongodb.net/mydbcrisme
 SECRETORPRIVATEKEY=MyUltraSecretPassword
 GOOGLE_CLIENT_ID=MyAwesomeGoogleID
+CLOUDINARY_URL=cloudinary://121545158424854:m-7csdEfhbsfSHBsfaas-sdasc34@dvvsdvnk6v
 ```
 
 * No olvidar agregar las ip de conexión deseadas a la lista blanca de la base de datos de mongo
@@ -41,5 +43,9 @@ GOOGLE_CLIENT_ID=MyAwesomeGoogleID
 [express-fileupload](https://www.npmjs.com/package/express-fileupload)
 
 [uuid](https://www.npmjs.com/package/uuid)
+
+[Cloudinary](https://www.npmjs.com/package/cloudinary)
+
+[Cloudinary web site](https://cloudinary.com/)
 
 [Integrating Google Sign-In into your web app](https://developers.google.com/identity/sign-in/web/sign-in)
